@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      title: 'Password genarator',
+      title: 'Password Genarator',
       home: const SplashPage(),
     );
   }

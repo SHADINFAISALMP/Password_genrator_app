@@ -10,11 +10,11 @@ class SplashPage extends StatelessWidget {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 3), () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => PasswordGeneratorPage()));
+            MaterialPageRoute(builder: (context) => const PasswordGeneratorPage()));
       });
     });
 
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.amber,
       body: Center(
         child: Column(
@@ -25,7 +25,7 @@ class SplashPage extends StatelessWidget {
               size: 100,
               color: Colors.black,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Text(
               'Password Generator',
               style: TextStyle(
@@ -34,7 +34,7 @@ class SplashPage extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             // Tagline
             Text(
               'Generate Secure and Random Passwords',
@@ -43,7 +43,7 @@ class SplashPage extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30),
 
             CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.black),

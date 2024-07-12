@@ -9,6 +9,7 @@ class PasswordGeneratorPage extends StatefulWidget {
   const PasswordGeneratorPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PasswordGeneratorPageState createState() => _PasswordGeneratorPageState();
 }
 
@@ -47,7 +48,12 @@ class _PasswordGeneratorPageState extends State<PasswordGeneratorPage> {
       _box.add(newPassword);
       print("password save to hive $_generatedPassword");
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Password saved!'),
+        backgroundColor: Colors.amber,
+        content: Center(
+            child: Text(
+          'Password saved!',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        )),
       ));
     }
   }
@@ -56,9 +62,27 @@ class _PasswordGeneratorPageState extends State<PasswordGeneratorPage> {
     if (_generatedPassword.isNotEmpty) {
       Clipboard.setData(ClipboardData(text: _generatedPassword));
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Password copied to clipboard!'),
+        backgroundColor: Colors.amber,
+        content: Center(
+            child: Text(
+          'Password copied to clipboard!',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        )),
       ));
     }
+  }
+
+  void _showSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: Colors.red,
+      content: Center(
+        child: Text(
+          message,
+          style:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      ),
+    ));
   }
 
   @override
@@ -132,13 +156,24 @@ class _PasswordGeneratorPageState extends State<PasswordGeneratorPage> {
                         vertical: 18.0, horizontal: 18),
                   ),
                   onPressed: () {
-                    setState(() {
-                      _generatedPassword = _generatePassword(_passwordLength);
-                    });
+                    if (!_includeUppercase &&
+                        !_includeLowercase &&
+                        !_includeNumbers &&
+                        !_includeSpecialChars) {
+                      _showSnackbar(
+                          'Please select at least one character type.');
+                    } else {
+                      setState(() {
+                        _generatedPassword = _generatePassword(_passwordLength);
+                      });
+                    }
                   },
                   child: const Text(
                     'Generate Password',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -175,7 +210,8 @@ class _PasswordGeneratorPageState extends State<PasswordGeneratorPage> {
                         _generatedPassword.isNotEmpty ? _savePassword : null,
                     child: const Text(
                       'Save Password',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                   ),
                   ElevatedButton(
@@ -191,7 +227,8 @@ class _PasswordGeneratorPageState extends State<PasswordGeneratorPage> {
                         _generatedPassword.isNotEmpty ? _copyToClipboard : null,
                     child: const Text(
                       'Copy to Clipboard',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -219,7 +256,10 @@ class _PasswordGeneratorPageState extends State<PasswordGeneratorPage> {
                   },
                   child: const Text(
                     'View Saved Passwords',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
